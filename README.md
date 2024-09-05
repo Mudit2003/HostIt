@@ -1,45 +1,55 @@
-# Vercel Clone
+# HostIt
 
-YouTube Video Link: https://youtu.be/0A_JpLYG7hM
+HostIt is a comprehensive hosting management application designed to streamline hosting services and server management. It includes various features to help manage and monitor hosting environments effectively.
 
-Whiteboard Diagram: https://app.eraser.io/workspace/0f8XnDF61iGcatypPqIR?origin=share
+## Features
 
-### Prerequisite
+- **API Server:** Provides REST APIs for managing hosting services.
+- **Build Server:** Handles Docker image creation, build automation, and deployment to S3.
+- **Reverse Proxy:** Manages subdomains and routes requests to S3 bucket static assets.
 
-- Node.JS: [Master NodeJS Playlist](https://youtube.com/playlist?list=PLinedj3B30sDby4Al-i13hQJGQoRQDfPo&si=5gaDmQ_mzuBHvAsg)
-- Redis: [Redis Crash Course](https://youtu.be/Vx2zPMPvmug?si=Z_XT6BMNgkgwnX49)
-- Learn Docker:
-  - Part 1: [Docker in One Shot - Part 1](https://youtu.be/31k6AtW-b3Y?si=FIPffAKieiBGgo5c)
-  - Part 2: [Docker in One Shot - Part 2](https://youtu.be/xPT8mXa-sJg?si=-6z_HkJZXsvrvSpO)
-- Docker with AWS ECS and ECR: [Real World Docker Deployments with AWS](https://youtu.be/AiiFbsAlLaI?si=dKrFZFr7fLBXKSab)
+## Tech Stack
 
-### Setup Guide
+- **Node.js:** Node.js installed. [Learn more about Node.js](https://nodejs.org/)
+- **Redis:** Redis is set up for caching and fast data retrieval. [Learn more about Redis](https://redis.io/)
+- **Docker:** Docker for containerization. [Learn more about Docker](https://www.docker.com/)
+- **AWS ECS & ECR:** AWS services for container orchestration and registry. [Learn more about AWS ECS and ECR](https://aws.amazon.com/ecs/)
 
-This Project contains following services and folders:
+## Setup Guide
 
-- `api-server`: HTTP API Server for REST API's
-- `build-server`: Docker Image code which clones, builds and pushes the build to S3
-- `s3-reverse-proxy`: Reverse Proxy the subdomains and domains to s3 bucket static assets
+This project contains the following services and directories:
+
+- `api-server`: HTTP API server for RESTful interactions.
+- `build-server`: Docker image build process for deployment to S3.
+- `s3-reverse-proxy`: Reverse proxy for routing requests to static assets stored in S3.
 
 ### Local Setup
 
-1. Run `npm install` in all the 3 services i.e. `api-server`, `build-server` and `s3-reverse-proxy`
-2. Docker build the `build-server` and push the image to AWS ECR.
-3. Setup the `api-server` by providing all the required config such as TASK ARN and CLUSTER arn.
-4. Run `node index.js` in `api-server` and `s3-reverse-proxy`
+1. **Install Dependencies:**
 
-At this point following services would be up and running:
+   Run `npm install` in all three services directories:
 
-| S.No | Service            | PORT    |
-| ---- | ------------------ | ------- |
-| 1    | `api-server`       | `:9000` |
-| 2    | `socket.io-server` | `:9002` |
-| 3    | `s3-reverse-proxy` | `:8000` |
+   ```bash
+   cd api-server
+   npm install
+   cd ../build-server
+   npm install
+   cd ../s3-reverse-proxy
+   npm install
+2. **Build the Docker image for the build-server and push it to your AWS ECR:**
+   ```bash
+   cd build-server
+docker build -t your-ecr-repository:latest .
+docker push your-ecr-repository:latest
+3. **Configure api-server:**
 
-### Demo
+Set up the api-server with required configurations such as TASK ARN and CLUSTER ARN.
 
-[Watch The Demo Video](https://imgur.com/I6KgmNR)
+4. **Run Services:**
 
-### Architecture
-
-![Vercel Clone Architecture](https://i.imgur.com/r7QUXqZ.png)
+Start the services by running the following commands in their respective directories:
+``` bash
+cd api-server
+node index.js
+cd ../s3-reverse-proxy
+node index.js
